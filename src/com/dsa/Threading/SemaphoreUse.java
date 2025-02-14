@@ -1,14 +1,13 @@
 package com.dsa.Threading;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class SemaphoreUse
 {
     public static void main(String[] args)
     {
         Semaphore semaphore = new Semaphore(3);
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        ExecutorService executorService = new ThreadPoolExecutor(5, 10, 60L, TimeUnit.SECONDS,
+                new LinkedBlockingQueue<Runnable>());
 
         for (int i = 1; i <= 10; i++)
         {
