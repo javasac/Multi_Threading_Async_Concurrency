@@ -1,12 +1,13 @@
 package com.dsa.Threading;
 
-class RunnableExample implements Runnable
+// output is uneven
+class EvenOdd_Thread implements Runnable
 {
     private int start;
     private int limit;
     private String taskName;
 
-    public RunnableExample(int start, int limit, String taskName)
+    public EvenOdd_Thread(int start, int limit, String taskName)
     {
         this.start = start;
         this.limit = limit;
@@ -33,8 +34,8 @@ class RunnableExample implements Runnable
 
     public static void main(String[] args)
     {
-        Thread oddThread = new Thread(new RunnableExample(1, 10, "Odd"));
-        Thread evenThread = new Thread(new RunnableExample(2, 10, "Even"));
+        Thread oddThread = new Thread(new EvenOdd_Thread(1, 10, "Odd"));
+        Thread evenThread = new Thread(new EvenOdd_Thread(2, 10, "Even"));
 
         oddThread.start();
         evenThread.start();
