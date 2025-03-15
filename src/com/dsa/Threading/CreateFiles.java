@@ -27,7 +27,7 @@ public class CreateFiles implements Runnable
         }
         catch (IOException e)
         {
-            System.err.println("Error writing to file " + fileName + ": " + e.getMessage());
+            System.err.println("Error writing to file " + fileName + " : " + e.getMessage());
         }
     }
 
