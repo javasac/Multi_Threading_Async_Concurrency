@@ -27,14 +27,17 @@ public class ReEntrantLockExample
 
         Thread t1 = new Thread(example::increment);
         Thread t2 = new Thread(example::increment);
+        Thread t3 = new Thread(example::increment);
 
         t1.start();
         t2.start();
+        t3.start();
 
         try
         {
             t1.join();
             t2.join();
+            t3.join();
         }
         catch (InterruptedException e)
         {
