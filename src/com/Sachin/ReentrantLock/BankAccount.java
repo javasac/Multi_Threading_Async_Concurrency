@@ -10,36 +10,45 @@ public class BankAccount
 
     public void withdraw(int amount)
     {
-        System.out.println(Thread.currentThread().getName() + " attempting to withdraw " + amount);
+        System.out.println(Thread.currentThread().getName() + " attempting to withdraw = " + amount);
 
-        if (balance >= amount)
+        try
         {
-            try
+            if (lock.tryLock(1000, TimeUnit.MILLISECONDS))
             {
-                if (lock.tryLock(2000, TimeUnit.MILLISECONDS))
+                if (balance >= amount)
                 {
-                    System.out.println(Thread.currentThread().getName() + " proceeding with withdrawal of " + amount);
-                    Thread.sleep(10000);
-                    balance = balance - amount;
-                    System.out.println(Thread.currentThread().getName() + " completed withdrawal. Remaining Balance = " + balance);
+                    try
+                    {
+                        System.out.println(Thread.currentThread().getName() + " proceeding with withdrawal of " + amount);
+                        Thread.sleep(3000);
+                        balance = balance - amount;
+                        System.out.println(Thread.currentThread().getName() + " completed withdrawal. Remaining Balance = " + balance);
+                    }
+                    catch (Exception e)
+                    {
+                        Thread.currentThread().interrupt();
+                        e.printStackTrace();
+                    }
+                    finally
+                    {
+                        lock.unlock();
+                    }
                 }
                 else
                 {
-                    System.out.println(Thread.currentThread().getName() + " could not acquire the lock, will try later.");
+                    System.out.println(Thread.currentThread().getName() + " insufficient balance.");
                 }
             }
-            catch (Exception e)
+            else
             {
-                e.printStackTrace();
-            }
-            finally
-            {
-                lock.unlock();
+                System.out.println(Thread.currentThread().getName() + " could not acquire the lock.");
             }
         }
-        else
+        catch (Exception e)
         {
-            System.out.println(Thread.currentThread().getName() + " insufficient balance.");
+            Thread.currentThread().interrupt();
+            e.printStackTrace();
         }
     }
 }

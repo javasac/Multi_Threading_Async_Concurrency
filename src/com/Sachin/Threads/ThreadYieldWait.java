@@ -12,7 +12,8 @@ public class ThreadYieldWait extends Thread
     {
         for (int i=1; i<=5; i++)
         {
-            System.out.println(Thread.currentThread().getName() + " Priority = " + Thread.currentThread().getPriority() + " and Count = " + i);
+            System.out.println(Thread.currentThread().getName() + " Priority = " +
+                    Thread.currentThread().getPriority() + " and Count = " + i);
 
             Thread.yield();
         }
@@ -23,7 +24,7 @@ public class ThreadYieldWait extends Thread
         ThreadYieldWait t1 = new ThreadYieldWait("Sachin");
         ThreadYieldWait t2 = new ThreadYieldWait("Kansal");
 
-        t1.setPriority(MAX_PRIORITY);
+        //t1.setPriority(MAX_PRIORITY);
         t1.start();
         t2.start();
     }

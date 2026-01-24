@@ -14,7 +14,6 @@ class EvenOdd_Thread implements Runnable
         this.taskName = taskName;
     }
 
-    @Override
     public void run()
     {
         for (int i = start; i <= limit; i += 2)
@@ -23,7 +22,7 @@ class EvenOdd_Thread implements Runnable
 
             try
             {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             }
             catch (InterruptedException e)
             {
@@ -32,10 +31,13 @@ class EvenOdd_Thread implements Runnable
         }
     }
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws InterruptedException
     {
         Thread oddThread = new Thread(new EvenOdd_Thread(1, 10, "Odd"));
+        oddThread.setName("Odd-Thread");
+
         Thread evenThread = new Thread(new EvenOdd_Thread(2, 10, "Even"));
+        evenThread.setName("Even-Thread");
 
         oddThread.start();
         evenThread.start();

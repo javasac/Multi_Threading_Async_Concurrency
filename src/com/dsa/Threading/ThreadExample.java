@@ -16,7 +16,7 @@ class ThreadExample extends Thread
     @Override
     public void run()
     {
-        for (int i = start; i <= limit; i += 2)
+        for (int i=start; i<=limit; i+=2)
         {
             System.out.println(taskName + " Thread: " + i);
 
@@ -36,7 +36,15 @@ class ThreadExample extends Thread
         ThreadExample oddThread = new ThreadExample(1, 10, "Odd");
         ThreadExample evenThread = new ThreadExample(2, 10, "Even");
 
-        oddThread.start();
-        evenThread.start();
+        try
+        {
+            oddThread.start();
+            evenThread.start();
+            oddThread.join();
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
     }
 }
